@@ -1,33 +1,84 @@
 ﻿using DogSearch.Core.Entities.Dog;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DogSearch.Infrastructure.Options;
+using Microsoft.Extensions.Options;
+using Npgsql;
+using SqlKata.Compilers;
+using SqlKata.Execution;
 
 namespace DogSearch.Infrastructure.Repositories;
 
 public class DogRepository : IDogRepository
 {
-    public Task Create(Dog dog)
+    private readonly DatabaseConnectionOptions _options;
+    private const string DogTableName = "dogs";
+    
+    public DogRepository(IOptions<DatabaseConnectionOptions> options)
     {
-        throw new NotImplementedException();
+        _options = options.Value;
     }
 
-    public Task Delete(DogId id)
+    public async Task Create(Dog dog)
     {
-        throw new NotImplementedException();
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = await db.Query(DogTableName).InsertAsync(new
+        {
+            id=dog.Id.Value,
+            name = dog.Name,
+            breed = dog.Breed,
+            owner_id = dog.OwnerId,
+            size= dog.Size,
+        });
+
+        await connection.CloseAsync();
     }
 
-    public Task<IEnumerable<Dog>> GetAll()
+    public async Task Delete(DogId id)
     {
-        throw new NotImplementedException();
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = (await db.Query(DogTableName)
+            .Where("id", id.Value.ToString())
+            .DeleteAsync());
+
+        await connection.CloseAsync();
     }
 
-    public Task<Dog> GetById(DogId id)
+    public async Task<IEnumerable<Dog>> GetAll()
     {
-        throw new NotImplementedException();
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = await db.Query(DogTableName)
+            .GetAsync<Dog>();
+
+        await connection.CloseAsync();
+        return result;
+    }
+
+    public async Task<Dog> GetById(DogId id)
+    {
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = (await db.Query(DogTableName)
+            .Where("id", id.Value)
+            .GetAsync<Dog>())
+            .First();
+
+        await connection.CloseAsync();
+        return result;
     }
 
     public Task Update(DogId id, Dog dog)

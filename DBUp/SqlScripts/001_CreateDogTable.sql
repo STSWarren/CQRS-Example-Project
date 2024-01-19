@@ -1,0 +1,1 @@
+CREATE TABLE dogs (id text NOT NULL PRIMARY KEY, name text, breed text, owner_id text NOT NULL, size text);

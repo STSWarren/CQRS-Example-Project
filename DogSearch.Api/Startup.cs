@@ -1,5 +1,7 @@
 ﻿using DogSearch.Core;
 using DogSearch.Infrastructure;
+using DogSearch.Infrastructure.Options;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DogSearch.Application;
 
@@ -15,11 +17,13 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+        services.AddOptions<DatabaseConnectionOptions>()
+            .Bind(Configuration.GetSection(DatabaseConnectionOptions.Section));
+
         services.AddInfrastructureServices();
         services.AddCoreServices();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
         services.AddCors(options => {
             options.AddPolicy("CorsPolicy", policy => {
                 policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
@@ -38,6 +42,8 @@ public class Startup
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             c.RoutePrefix = "";
         });
+        var result = DbConfiguration.ConfigureDb(
+            Configuration.GetValue<string>("ConnectionStrings:DatabaseConnectionString"));
         app.UseRouting();
         app.UseStaticFiles();
         app.UseAuthentication();
