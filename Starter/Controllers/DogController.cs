@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using DogSearch.Core.Queries;
+using DogSearch.Api.Dtos;
+using DogSearch.Core.Commands;
+using DogSearch.Core.Entities.Dog;
 
 namespace DogSearch.Application.Controllers;
 
 [Route("api/dog")]
 [ApiController]
-public class DogController : ControllerBase
+public class DogController : Controller
 {
     private readonly IMediator _mediator;
 
@@ -17,30 +21,40 @@ public class DogController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult> Get(Guid id)
     {
-        return NotFound();
+        var query = new GetDogQuery(id);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpGet]
     public async Task<ActionResult> GetAll()
     {
-        return NotFound();
+        var query = new GetAllDogsQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpPost]
-    public async Task<ActionResult> Add(Guid id)
+    public async Task<ActionResult> Create([FromBody] CreateDogRequestDto dto)
     {
-        return NotFound();
+        var command = new CreateDogCommand(dto.Name, dto.Breed, dto.OwnerId, Enum.Parse<Size>(dto.Size));
+        var id = await _mediator.Send(command);
+        return Ok(id);
     }
 
-    [HttpPut]
-    public async Task<ActionResult> Update(Guid id)
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(Guid id, [FromBody] UpdateDogRequestDto dto)
     {
-        return NotFound();
+        var command = new UpdateDogCommand(id, dto.Name, dto.Breed, dto.OwnerId, Enum.Parse<Size>(dto.Size));
+        await _mediator.Send(command);
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id)
     {
-        return NotFound();
+        var command = new DeleteDogCommand(id);
+        await _mediator.Send(command);
+        return NoContent();
     }
 }

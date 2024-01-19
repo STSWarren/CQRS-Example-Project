@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Api", "DogSearch.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBUp", "..\DBUp\DBUp.csproj", "{F2057577-AB34-4DEE-B2A1-73C31EC7AF7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogSearch.Infrastructure", "..\DogSearch.Infrastructure\DogSearch.Infrastructure.csproj", "{B76D349A-ACED-43EA-89EA-CEB719802AD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Infrastructure", "..\DogSearch.Infrastructure\DogSearch.Infrastructure.csproj", "{B76D349A-ACED-43EA-89EA-CEB719802AD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogSearch.Core", "..\DogSearch.Core\DogSearch.Core.csproj", "{F429698C-D8EB-4F77-A9F2-36EC4B08DE22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Core", "..\DogSearch.Core\DogSearch.Core.csproj", "{F429698C-D8EB-4F77-A9F2-36EC4B08DE22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

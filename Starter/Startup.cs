@@ -32,8 +32,12 @@ public class Startup
         app.UseStatusCodePagesWithReExecute("/error/{0}");
         app.UseCors("CorsPolicy");
         app.UseHttpsRedirection();
-        app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwagger(); 
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            c.RoutePrefix = "";
+        });
         app.UseRouting();
         app.UseStaticFiles();
         app.UseAuthentication();
