@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>DogSearch.Infrastructure.Test.Integration</RootNamespace>
+    <AssemblyName>DogSearch.Core.Test</AssemblyName>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DogSearch.Infrastructure\DogSearch.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
