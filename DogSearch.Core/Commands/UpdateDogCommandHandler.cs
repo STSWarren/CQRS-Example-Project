@@ -15,6 +15,12 @@ public class UpdateDogCommandHandler : IRequestHandler<UpdateDogCommand>
 
     public Task Handle(UpdateDogCommand request, CancellationToken cancellationToken)
     {
-        return _repository.Update(request.Id, new Dog(request.Id.Value, request.Name, request.Breed, request.OwnerId, request.Size));
+        return _repository.Update(
+            request.Id, 
+            new Dog(request.Id.Value, 
+            request.Name, 
+            request.Breed, 
+            request.OwnerId, 
+            request.Size));
     }
 }

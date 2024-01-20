@@ -2,7 +2,7 @@
 
 public class Dog
 {
-    public Dog(Guid id, string name, string breed, Guid ownerId, Size size)
+    public Dog(Guid id, string name, string breed, Guid ownerId, Size? size)
     {
         Id = new DogId(id);
         Name = name;
@@ -15,5 +15,5 @@ public class Dog
     public string Name { get; init; }
     public string Breed { get; init; }
     public Guid OwnerId { get; init; }
-    public Size Size { get; init; }
+    public Size? Size { get; init; }
 }
