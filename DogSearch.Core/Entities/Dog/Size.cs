@@ -2,7 +2,7 @@
 
 public enum Size
 {
-    S,
-    M,
-    L,
+    Small,
+    Medium,
+    Large,
 }

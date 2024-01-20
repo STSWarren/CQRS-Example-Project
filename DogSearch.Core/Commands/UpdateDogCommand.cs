@@ -5,7 +5,7 @@ namespace DogSearch.Core.Commands;
 
 public class UpdateDogCommand : IRequest
 {
-    public UpdateDogCommand(Guid id, string name, string breed, Guid ownerId, Size size)
+    public UpdateDogCommand(Guid id, string name, string breed, Guid ownerId, Size? size)
     {
         Id = new DogId(id);
         Name = name;
@@ -17,5 +17,5 @@ public class UpdateDogCommand : IRequest
     public string Name { get; init; }
     public string Breed { get; init; }
     public Guid OwnerId { get; init; }
-    public Size Size { get; init; }
+    public Size? Size { get; init; }
 }

@@ -45,12 +45,19 @@ public class DogController : Controller
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(Guid id, [FromBody] UpdateDogRequestDto dto)
     {
+        Size? passedSize = null;
+        if (dto.Size != null)
+        {
+            var sizeLower = dto.Size.ToLower();
+            var sizeFormatted = string.Concat(sizeLower[0].ToString().ToUpper(), sizeLower.AsSpan(1));
+            passedSize = Enum.Parse<Size>(sizeFormatted);
+        }
         var command = new UpdateDogCommand(
             id, 
-            dto.Name, 
-            dto.Breed, 
-            dto.OwnerId, 
-            Enum.Parse<Size>(dto.Size.ToUpper()));
+            dto.Name?? string.Empty, 
+            dto.Breed ?? string.Empty, 
+            dto.OwnerId ?? Guid.Empty,
+            passedSize);
         await _mediator.Send(command);
         return NoContent();
     }

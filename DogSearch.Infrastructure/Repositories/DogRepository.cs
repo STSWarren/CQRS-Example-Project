@@ -12,6 +12,7 @@ public class DogRepository : IDogRepository
 {
     private readonly DatabaseConnectionOptions _options;
     private const string DogTableName = "dogs";
+    private const string Id = "id";
     
     public DogRepository(IOptions<DatabaseConnectionOptions> options)
     {
@@ -45,7 +46,7 @@ public class DogRepository : IDogRepository
         var db = new QueryFactory(connection, compiler);
 
         var result = (await db.Query(DogTableName)
-            .Where("id", id.Value.ToString())
+            .Where(Id, id.Value.ToString())
             .DeleteAsync());
 
         await connection.CloseAsync();
@@ -73,7 +74,7 @@ public class DogRepository : IDogRepository
         var db = new QueryFactory(connection, compiler);
 
         var result = (await db.Query(DogTableName)
-            .Where("id", id.Value)
+            .Where(Id, id.Value)
             .GetAsync<Dog>())
             .First();
 
@@ -81,8 +82,43 @@ public class DogRepository : IDogRepository
         return result;
     }
 
-    public Task Update(DogId id, Dog dog)
+    public async Task Update(DogId id, Dog dog)
     {
-        throw new NotImplementedException();
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var dogCurrentValue = (await db.Query(DogTableName)
+            .Where(Id, dog.Id.Value)
+            .GetAsync<Dog>())
+            .First();
+        var updatedName = dogCurrentValue.Name;
+        if (dog.Name != string.Empty)
+        {
+            updatedName = dog.Name;
+        }
+        var updatedBreed = dogCurrentValue.Breed;
+        if (dog.Breed != string.Empty)
+        {
+            updatedBreed = dog.Breed;
+        }
+        var updatedOwnerId = dogCurrentValue.OwnerId;
+        if (dog.OwnerId != Guid.Empty)
+        {
+            updatedOwnerId = dog.OwnerId;
+        }
+        var updatedSize = dogCurrentValue.Size;
+        if (dog.Size != null)
+        {
+            updatedSize = dog.Size;
+        }
+        await db.Query(DogTableName).Where(Id, dog.Id.Value).UpdateAsync(new
+        {
+            name = updatedName,
+            breed = updatedBreed,
+            owner_id = updatedOwnerId,
+            size = updatedSize,
+        });
     }
 }
