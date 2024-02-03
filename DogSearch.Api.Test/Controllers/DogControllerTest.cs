@@ -8,4 +8,5 @@ namespace DogSearch.Api.Test.Controllers;
 
 public class DogControllerTest
 {
+    
 }

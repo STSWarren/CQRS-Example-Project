@@ -1,49 +1,51 @@
-﻿using Xunit;
-using AutoFixture.Xunit2;
-using DogSearch.Core.Entities.Dog;
+﻿using AutoFixture.Xunit2;
 using DogSearch.Core.Commands;
-using Moq;
+using DogSearch.Core.Entities.Dog;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using DogSearch.Core.Test.TestingAttributes;
 using FluentAssertions;
+using Moq;
+using Xunit;
 
 namespace DogSearch.Core.Test.Commands;
 
-public class CreateDogCommandHandlerTest
+public class UpdateDogCommandHandlerTest
 {
 
     [Theory]
     [AutoMoqData]
-    public async void Should_call_create_from_repository_when_handle(
+    public async void Should_call_Update_from_repository_when_handle(
         [Frozen] Mock<IDogRepository> dogRepositoryMock,
-        CreateDogCommand command, 
-        CancellationToken token, 
-        CreateDogCommandHandler sut)
+        UpdateDogCommand command,
+        CancellationToken token,
+        UpdateDogCommandHandler sut)
     {
         //Arrange
-        dogRepositoryMock.Setup(x => x.Create(It.IsAny<Dog>())).Returns(Task.CompletedTask);
+        dogRepositoryMock.Setup(x => x.Update(It.IsAny<DogId>(),It.IsAny<Dog>())).Returns(Task.CompletedTask);
 
         //Act
         await sut.Handle(command, token);
 
         //Assert
-        dogRepositoryMock.Verify(x => x.Create(It.IsAny<Dog>()), Times.Once);
+        dogRepositoryMock.Verify(x => x.Update(It.IsAny<DogId>(), It.IsAny<Dog>()), Times.Once);
     }
 
 
     [Theory]
     [AutoMoqData]
-    public async void Should_call_create_with_corect_values_when_handle(
+    public async void Should_call_Update_with_corect_values_when_handle(
         [Frozen] Mock<IDogRepository> dogRepositoryMock,
-        CreateDogCommand command,
+        UpdateDogCommand command,
         CancellationToken token,
-        CreateDogCommandHandler sut)
+        UpdateDogCommandHandler sut)
     {
         //Arrange
         Dog callbackDog = null;
-        dogRepositoryMock.Setup(x => x.Create(It.IsAny<Dog>()))
-            .Callback<Dog>((d) =>
+        DogId callbackDogId = null;
+        dogRepositoryMock.Setup(x => x.Update(It.IsAny<DogId>(), It.IsAny<Dog>()))
+            .Callback<DogId,Dog>((id, d) =>
             {
+                callbackDogId = id;
                 callbackDog = d;
             }).Returns(Task.CompletedTask);
 
@@ -51,6 +53,7 @@ public class CreateDogCommandHandlerTest
         await sut.Handle(command, token);
 
         //Assert
+        callbackDogId.Should().Be(command.Id);
         callbackDog.Name.Should().Be(command.Name);
         callbackDog.Breed.Should().Be(command.Breed);
         callbackDog.Size.Should().Be(command.Size);
