@@ -1,7 +1,7 @@
 ﻿using AutoFixture.Xunit2;
 using DogSearch.Core.Entities.Dog;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
-using DogSearch.Core.Queries;
+using DogSearch.Core.Queries.Dogs;
 using DogSearch.Core.Test.TestingAttributes;
 using FluentAssertions;
 using Moq;

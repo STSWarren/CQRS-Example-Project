@@ -1,13 +1,13 @@
 ﻿using DogSearch.Core.Entities.Dog;
 using MediatR;
+namespace DogSearch.Core.Commands.Dogs;
 
-namespace DogSearch.Core.Queries;
-
-public class GetDogQuery : IRequest<Dog>
+public class DeleteDogCommand : IRequest
 {
-    public GetDogQuery(Guid id)
+    public DeleteDogCommand(Guid id)
     {
         Id = new DogId(id);
     }
+
     public DogId Id { get; init; }
 }

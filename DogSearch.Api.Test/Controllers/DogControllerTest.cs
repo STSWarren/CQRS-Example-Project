@@ -1,8 +1,8 @@
 ﻿using DogSearch.Api.Dtos;
 using DogSearch.Application.Controllers;
-using DogSearch.Core.Commands;
+using DogSearch.Core.Commands.Dogs;
 using DogSearch.Core.Entities.Dog;
-using DogSearch.Core.Queries;
+using DogSearch.Core.Queries.Dogs;
 using DogSearch.Core.Test.TestingAttributes;
 using FluentAssertions;
 using MediatR;

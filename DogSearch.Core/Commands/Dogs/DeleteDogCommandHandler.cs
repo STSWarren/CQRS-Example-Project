@@ -1,9 +1,9 @@
 ﻿using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using MediatR;
 
-namespace DogSearch.Core.Commands;
+namespace DogSearch.Core.Commands.Dogs;
 
-public class DeleteDogCommandHandler:IRequestHandler<DeleteDogCommand>
+public class DeleteDogCommandHandler : IRequestHandler<DeleteDogCommand>
 {
     private readonly IDogRepository _repository;
 

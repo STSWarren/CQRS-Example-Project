@@ -2,9 +2,9 @@
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using MediatR;
 
-namespace DogSearch.Core.Commands;
+namespace DogSearch.Core.Commands.Dogs;
 
-public class CreateDogCommandHandler:IRequestHandler<CreateDogCommand, DogId>
+public class CreateDogCommandHandler : IRequestHandler<CreateDogCommand, DogId>
 {
     private readonly IDogRepository _repository;
 

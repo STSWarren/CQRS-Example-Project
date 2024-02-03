@@ -1,0 +1,22 @@
+﻿using DogSearch.Core.Entities.Owners;
+using MediatR;
+
+namespace DogSearch.Core.Commands.Owners;
+
+public class CreateOwnerCommand : IRequest<OwnerId>
+{
+    public CreateOwnerCommand(string firstName, string lastName, string address, string email, string phone)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Address = address;
+        Email = email;
+        Phone = phone;
+    }
+
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Address { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+}

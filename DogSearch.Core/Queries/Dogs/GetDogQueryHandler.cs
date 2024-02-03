@@ -2,9 +2,9 @@
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using MediatR;
 
-namespace DogSearch.Core.Queries;
+namespace DogSearch.Core.Queries.Dogs;
 
-public class GetDogQueryHandler:IRequestHandler<GetDogQuery, Dog>
+public class GetDogQueryHandler : IRequestHandler<GetDogQuery, Dog>
 {
     private readonly IDogRepository _repository;
 

@@ -1,5 +1,5 @@
 ﻿using AutoFixture.Xunit2;
-using DogSearch.Core.Commands;
+using DogSearch.Core.Commands.Dogs;
 using DogSearch.Core.Entities.Dog;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using DogSearch.Core.Test.TestingAttributes;

@@ -1,11 +1,11 @@
 ﻿using Xunit;
 using AutoFixture.Xunit2;
 using DogSearch.Core.Entities.Dog;
-using DogSearch.Core.Commands;
 using Moq;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using DogSearch.Core.Test.TestingAttributes;
 using FluentAssertions;
+using DogSearch.Core.Commands.Dogs;
 
 namespace DogSearch.Core.Test.Commands;
 

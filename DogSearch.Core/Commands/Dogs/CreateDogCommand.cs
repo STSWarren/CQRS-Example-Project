@@ -1,21 +1,20 @@
 ﻿using DogSearch.Core.Entities.Dog;
 using MediatR;
 
-namespace DogSearch.Core.Commands;
+namespace DogSearch.Core.Commands.Dogs;
 
-public class UpdateDogCommand : IRequest
+public class CreateDogCommand : IRequest<DogId>
 {
-    public UpdateDogCommand(Guid id, string name, string breed, Guid ownerId, Size? size)
+    public CreateDogCommand(string name, string breed, Guid ownerId, Size size)
     {
-        Id = new DogId(id);
         Name = name;
         Breed = breed;
         OwnerId = ownerId;
         Size = size;
     }
-    public DogId Id { get; set; }
+
     public string Name { get; init; }
     public string Breed { get; init; }
     public Guid OwnerId { get; init; }
-    public Size? Size { get; init; }
+    public Size Size { get; init; }
 }

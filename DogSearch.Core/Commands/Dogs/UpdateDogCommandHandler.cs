@@ -2,7 +2,7 @@
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using MediatR;
 
-namespace DogSearch.Core.Commands;
+namespace DogSearch.Core.Commands.Dogs;
 
 public class UpdateDogCommandHandler : IRequestHandler<UpdateDogCommand>
 {
@@ -16,11 +16,11 @@ public class UpdateDogCommandHandler : IRequestHandler<UpdateDogCommand>
     public Task Handle(UpdateDogCommand request, CancellationToken cancellationToken)
     {
         return _repository.Update(
-            request.Id, 
-            new Dog(request.Id.Value, 
-            request.Name, 
-            request.Breed, 
-            request.OwnerId, 
+            request.Id,
+            new Dog(request.Id.Value,
+            request.Name,
+            request.Breed,
+            request.OwnerId,
             request.Size));
     }
 }
