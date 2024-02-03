@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DogSearch.Core\DogSearch.Core.csproj" />
+    <ProjectReference Include="..\DogSearch.Test.Tools\DogSearch.Test.Tools.csproj" />
   </ItemGroup>
 
 </Project>

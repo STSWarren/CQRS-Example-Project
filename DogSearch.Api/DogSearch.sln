@@ -11,15 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Core", "..\DogSearch.Core\DogSearch.Core.csproj", "{F429698C-D8EB-4F77-A9F2-36EC4B08DE22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogSearch.Api.Test", "..\DogSearch.Api.Test\DogSearch.Api.Test.csproj", "{D5CF1C20-802A-46FF-BF53-3EF82AE3B18F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Api.Test", "..\DogSearch.Api.Test\DogSearch.Api.Test.csproj", "{D5CF1C20-802A-46FF-BF53-3EF82AE3B18F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{183BBC41-3D9D-4421-B268-D74E08328C8A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{A6C70426-15C7-47AA-9C03-9659839B2D34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogSearch.Core.Test", "..\DogSearch.Core.Test\DogSearch.Core.Test.csproj", "{B0CCB191-2E39-4B7D-BDD2-D82182635465}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Core.Test", "..\DogSearch.Core.Test\DogSearch.Core.Test.csproj", "{B0CCB191-2E39-4B7D-BDD2-D82182635465}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogSearch.Infrastructure.Test.Integration", "..\DogSearch.Infrastructure.Test.Integration\DogSearch.Infrastructure.Test.Integration.csproj", "{F360CD19-C425-4D23-84C6-BA792864AD55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogSearch.Infrastructure.Test.Integration", "..\DogSearch.Infrastructure.Test.Integration\DogSearch.Infrastructure.Test.Integration.csproj", "{F360CD19-C425-4D23-84C6-BA792864AD55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogSearch.Test.Tools", "..\DogSearch.Test.Tools\DogSearch.Test.Tools.csproj", "{CAEF40DD-07F3-4793-9A5B-FE3FAB9C781A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{F360CD19-C425-4D23-84C6-BA792864AD55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F360CD19-C425-4D23-84C6-BA792864AD55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F360CD19-C425-4D23-84C6-BA792864AD55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAEF40DD-07F3-4793-9A5B-FE3FAB9C781A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEF40DD-07F3-4793-9A5B-FE3FAB9C781A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEF40DD-07F3-4793-9A5B-FE3FAB9C781A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEF40DD-07F3-4793-9A5B-FE3FAB9C781A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{D5CF1C20-802A-46FF-BF53-3EF82AE3B18F} = {183BBC41-3D9D-4421-B268-D74E08328C8A}
 		{B0CCB191-2E39-4B7D-BDD2-D82182635465} = {183BBC41-3D9D-4421-B268-D74E08328C8A}
 		{F360CD19-C425-4D23-84C6-BA792864AD55} = {183BBC41-3D9D-4421-B268-D74E08328C8A}
+		{CAEF40DD-07F3-4793-9A5B-FE3FAB9C781A} = {183BBC41-3D9D-4421-B268-D74E08328C8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5B403C7-450C-4C5A-8E0A-97312361DBCA}
