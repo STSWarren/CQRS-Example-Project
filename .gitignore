@@ -397,3 +397,6 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /DogSearch.Api/appsettings.Development.json
+/DogSearch.Api.Test/DogSearch - Backup.Api.Test.csproj
+/DogSearch.Api.Test/DogSearch - Backup (2).Api.Test.csproj
+/DogSearch.Api.Test/DogSearch - Backup (1).Api.Test.csproj

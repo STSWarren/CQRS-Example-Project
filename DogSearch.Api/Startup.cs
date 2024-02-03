@@ -1,7 +1,6 @@
 ﻿using DogSearch.Core;
 using DogSearch.Infrastructure;
 using DogSearch.Infrastructure.Options;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DogSearch.Application;
 

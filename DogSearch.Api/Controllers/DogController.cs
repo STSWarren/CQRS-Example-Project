@@ -38,8 +38,8 @@ public class DogController : Controller
     public async Task<ActionResult> Create([FromBody] CreateDogRequestDto dto)
     {
         var command = new CreateDogCommand(dto.Name, dto.Breed, dto.OwnerId, Enum.Parse<Size>(dto.Size));
-        var id = await _mediator.Send(command);
-        return Ok(id);
+        var dogId = await _mediator.Send(command);
+        return CreatedAtAction(nameof(Create), new { id = dogId.Value });
     }
 
     [HttpPut("{id}")]
