@@ -6,10 +6,10 @@ namespace DogSearch.Core.Commands.Placements;
 
 public class DeletePlacementCommand : IRequest
 {
-    public DeletePlacementCommand(DogId dogId, ShowId showId, string category)
+    public DeletePlacementCommand(Guid dogId, Guid showId, string category)
     {
-        DogId = dogId;
-        ShowId = showId;
+        DogId = new DogId(dogId);
+        ShowId = new ShowId(showId);
         Category = category;
     }
 

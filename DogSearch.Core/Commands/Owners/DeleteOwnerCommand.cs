@@ -5,9 +5,9 @@ namespace DogSearch.Core.Commands.Owners;
 
 public class DeleteOwnerCommand : IRequest
 {
-    public DeleteOwnerCommand(OwnerId id)
+    public DeleteOwnerCommand(Guid id)
     {
-        Id = id;
+        Id = new OwnerId(id);
     }
 
     public OwnerId Id { get; set; }

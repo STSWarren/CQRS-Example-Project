@@ -82,6 +82,21 @@ public class DogRepository : IDogRepository
         return result;
     }
 
+    public async Task<IEnumerable<Dog>> ListByIds(IEnumerable<DogId> ids)
+    {
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = await db.Query(DogTableName)
+            .Where(Id, ids.Select(x => x.Value))
+            .GetAsync<Dog>();
+
+        await connection.CloseAsync();
+        return result;
+    }
+
     public async Task Update(DogId id, Dog dog)
     {
         using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);

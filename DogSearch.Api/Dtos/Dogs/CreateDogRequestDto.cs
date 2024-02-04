@@ -5,11 +5,11 @@ namespace DogSearch.Api.Dtos.Dogs;
 public class CreateDogRequestDto
 {
     [Required]
-    public string Name { get; set; }
+    public string Name { get; init; }
     [Required]
-    public string Breed { get; set; }
+    public string Breed { get; init; }
     [Required]
-    public Guid OwnerId { get; set; }
+    public Guid OwnerId { get; init; }
     [Required]
-    public string Size { get; set; }
+    public string Size { get; init; }
 }

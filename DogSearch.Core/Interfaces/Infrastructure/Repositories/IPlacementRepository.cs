@@ -7,6 +7,7 @@ namespace DogSearch.Core.Interfaces.Infrastructure.Repositories;
 public interface IPlacementRepository
 {
     Task Create(Placement placement);
+    Task<Placement> Get(DogId dogId, ShowId showId, string category);
     Task<IEnumerable<Placement>> GetAll();
     Task<IEnumerable<Placement>> GetAllByDogId(DogId dogId);
     Task<IEnumerable<Placement>> GetAllByShowId(ShowId showId);

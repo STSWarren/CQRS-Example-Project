@@ -1,4 +1,5 @@
-﻿using DogSearch.Core.Entities.Shows;
+﻿using DogSearch.Core.Entities.Dog;
+using DogSearch.Core.Entities.Shows;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using DogSearch.Infrastructure.Options;
 using Microsoft.Extensions.Options;
@@ -109,7 +110,7 @@ public class ShowRepository : IShowRepository
             updatedDate = show.Date;
         }
         var updatedWebsite = showCurrentValue.Website;
-        if (show.Website != null)
+        if (show.Website != string.Empty)
         {
             updatedWebsite = show.Website;
         }
@@ -120,5 +121,20 @@ public class ShowRepository : IShowRepository
             date = updatedDate,
             website = updatedWebsite,
         });
+    }
+
+    public async Task<IEnumerable<Show>> ListByIds(IEnumerable<ShowId> ids)
+    {
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = await db.Query(ShowTableName)
+            .Where(Id, ids.Select(x => x.Value))
+            .GetAsync<Show>();
+
+        await connection.CloseAsync();
+        return result;
     }
 }

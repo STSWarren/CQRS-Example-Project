@@ -5,9 +5,9 @@ namespace DogSearch.Core.Commands.Owners;
 
 public class UpdateOwnerCommand : IRequest
 {
-    public UpdateOwnerCommand(OwnerId id, string firstName, string lastName, string address, string email, string phone)
+    public UpdateOwnerCommand(Guid id, string firstName, string lastName, string address, string email, string phone)
     {
-        Id = id;
+        Id = new OwnerId(id);
         FirstName = firstName;
         LastName = lastName;
         Address = address;

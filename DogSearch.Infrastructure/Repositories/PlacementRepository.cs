@@ -148,4 +148,22 @@ public class PlacementRepository : IPlacementRepository
             place = place,
         });
     }
+
+    public async Task<Placement> Get(DogId dogId, ShowId showId, string category)
+    {
+        using var connection = new NpgsqlConnection(_options.DatabaseConnectionString);
+        connection.Open();
+        var compiler = new PostgresCompiler();
+        var db = new QueryFactory(connection, compiler);
+
+        var result = (await db.Query(PlacementTableName)
+            .Where(ShowId, showId.Value.ToString())
+            .Where(DogId, dogId.Value.ToString())
+            .Where(Category, category)
+            .GetAsync<Placement>())
+            .First();
+
+        await connection.CloseAsync();
+        return result;
+    }
 }

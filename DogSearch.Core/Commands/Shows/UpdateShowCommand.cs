@@ -5,9 +5,9 @@ namespace DogSearch.Core.Commands.Shows;
 
 public class UpdateShowCommand : IRequest
 {
-    public UpdateShowCommand(ShowId id, string name, string description, DateTimeOffset date, string website)
+    public UpdateShowCommand(Guid id, string name, string description, DateTimeOffset date, string website)
     {
-        Id = id;
+        Id = new ShowId(id);
         Name = name;
         Description = description;
         Website = website;

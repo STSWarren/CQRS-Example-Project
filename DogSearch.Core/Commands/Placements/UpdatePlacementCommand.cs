@@ -6,10 +6,10 @@ namespace DogSearch.Core.Commands.Placements;
 
 public class UpdatePlacementCommand : IRequest
 {
-    public UpdatePlacementCommand(DogId dogId, ShowId showId, string category, int place)
+    public UpdatePlacementCommand(Guid dogId, Guid showId, string category, int place)
     {
-        DogId = dogId;
-        ShowId = showId;
+        DogId = new DogId(dogId);
+        ShowId = new ShowId(showId);
         Category = category;
         Place = place;
     }
