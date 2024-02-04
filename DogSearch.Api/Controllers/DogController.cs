@@ -54,7 +54,7 @@ public class DogController : Controller
         }
         var command = new UpdateDogCommand(
             id, 
-            dto.Name?? string.Empty, 
+            dto.Name ?? string.Empty, 
             dto.Breed ?? string.Empty, 
             dto.OwnerId ?? Guid.Empty,
             passedSize);

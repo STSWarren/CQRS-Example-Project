@@ -5,9 +5,9 @@ namespace DogSearch.Core.Queries.Owners;
 
 public class GetOwnerQuery : IRequest<Owner>
 {
-    public GetOwnerQuery(OwnerId id)
+    public GetOwnerQuery(Guid id)
     {
-        Id = id;
+        Id = new OwnerId(id);
     }
 
     public OwnerId Id { get; set; }
