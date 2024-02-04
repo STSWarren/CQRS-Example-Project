@@ -11,7 +11,7 @@ namespace DogSearch.Infrastructure.Repositories;
 public class OwnerRepository : IOwnerRepository
 {
     private readonly DatabaseConnectionOptions _options;
-    private const string OwnerTableName = "owner";
+    private const string OwnerTableName = "owners";
     private const string Id = "id";
 
     public OwnerRepository(IOptions<DatabaseConnectionOptions> options)

@@ -8,10 +8,18 @@
 
   <ItemGroup>
     <None Remove="SqlScripts\001_CreateDogTable.sql" />
+    <None Remove="SqlScripts\002_CreateOwnerTable.sql" />
+    <None Remove="SqlScripts\003_AddOwnerIdAsFKToDogTable.sql" />
+    <None Remove="SqlScripts\004_CreateShowTable.sql" />
+    <None Remove="SqlScripts\005_CreateTablePlacementTable.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="SqlScripts\001_CreateDogTable.sql" />
+    <EmbeddedResource Include="SqlScripts\002_CreateOwnerTable.sql" />
+    <EmbeddedResource Include="SqlScripts\003_AddOwnerIdAsFKToDogTable.sql" />
+    <EmbeddedResource Include="SqlScripts\004_CreateShowTable.sql" />
+    <EmbeddedResource Include="SqlScripts\005_CreateTablePlacementTable.sql" />
   </ItemGroup>
 
   <ItemGroup>

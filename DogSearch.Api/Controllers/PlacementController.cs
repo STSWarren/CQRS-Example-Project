@@ -37,7 +37,7 @@ public class PlacementController : Controller
         return Ok(response);
     }
 
-    [HttpGet]
+    [HttpGet("all")]
     public async Task<ActionResult> GetAll()
     {
         var query = new GetAllPlacementsQuery();
