@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using DogSearch.Core.Queries;
 using DogSearch.Api.Dtos;
-using DogSearch.Core.Commands;
 using DogSearch.Core.Entities.Dog;
+using DogSearch.Core.Queries.Dogs;
+using DogSearch.Core.Commands.Dogs;
 
 namespace DogSearch.Application.Controllers;
 
