@@ -1,15 +1,9 @@
-﻿using DogSearch.Core.Commands.Dogs;
-using DogSearch.Core.Interfaces.Infrastructure.Repositories;
+﻿using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DogSearch.Core.Commands.Owners;
 
-internal class DeleteOwnerCommandHandler : IRequestHandler<DeleteOwnerCommand>
+public class DeleteOwnerCommandHandler : IRequestHandler<DeleteOwnerCommand>
 {
     private readonly IOwnerRepository _repository;
 
