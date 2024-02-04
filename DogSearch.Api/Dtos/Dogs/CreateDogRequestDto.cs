@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DogSearch.Api.Dtos;
+namespace DogSearch.Api.Dtos.Dogs;
 
 public class CreateDogRequestDto
 {

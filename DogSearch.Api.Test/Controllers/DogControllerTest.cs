@@ -1,4 +1,4 @@
-﻿using DogSearch.Api.Dtos;
+﻿using DogSearch.Api.Dtos.Dogs;
 using DogSearch.Application.Controllers;
 using DogSearch.Core.Commands.Dogs;
 using DogSearch.Core.Entities.Dog;
