@@ -7,7 +7,7 @@ using DogSearch.Core.Test.TestingAttributes;
 using FluentAssertions;
 using DogSearch.Core.Commands.Dogs;
 
-namespace DogSearch.Core.Test.Commands;
+namespace DogSearch.Core.Test.Commands.Dogs;
 
 public class CreateDogCommandHandlerTest
 {
@@ -16,8 +16,8 @@ public class CreateDogCommandHandlerTest
     [AutoMoqData]
     public async void Should_call_create_from_repository_when_handle(
         [Frozen] Mock<IDogRepository> dogRepositoryMock,
-        CreateDogCommand command, 
-        CancellationToken token, 
+        CreateDogCommand command,
+        CancellationToken token,
         CreateDogCommandHandler sut)
     {
         //Arrange

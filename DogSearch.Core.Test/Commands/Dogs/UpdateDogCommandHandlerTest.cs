@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace DogSearch.Core.Test.Commands;
+namespace DogSearch.Core.Test.Commands.Dogs;
 
 public class UpdateDogCommandHandlerTest
 {
@@ -21,7 +21,7 @@ public class UpdateDogCommandHandlerTest
         UpdateDogCommandHandler sut)
     {
         //Arrange
-        dogRepositoryMock.Setup(x => x.Update(It.IsAny<DogId>(),It.IsAny<Dog>())).Returns(Task.CompletedTask);
+        dogRepositoryMock.Setup(x => x.Update(It.IsAny<DogId>(), It.IsAny<Dog>())).Returns(Task.CompletedTask);
 
         //Act
         await sut.Handle(command, token);
@@ -43,7 +43,7 @@ public class UpdateDogCommandHandlerTest
         Dog callbackDog = null;
         DogId callbackDogId = null;
         dogRepositoryMock.Setup(x => x.Update(It.IsAny<DogId>(), It.IsAny<Dog>()))
-            .Callback<DogId,Dog>((id, d) =>
+            .Callback<DogId, Dog>((id, d) =>
             {
                 callbackDogId = id;
                 callbackDog = d;

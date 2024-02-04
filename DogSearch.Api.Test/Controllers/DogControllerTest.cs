@@ -1,4 +1,5 @@
-﻿using DogSearch.Api.Dtos.Dogs;
+﻿using AutoFixture;
+using DogSearch.Api.Dtos.Dogs;
 using DogSearch.Application.Controllers;
 using DogSearch.Core.Commands.Dogs;
 using DogSearch.Core.Entities.Dog;
@@ -109,12 +110,12 @@ public class DogControllerTest
     [Theory]
     [AutoMoqData]
     public async void Should_send_CreateDogCommand_Command_when_Create(
-        CreateDogRequestDto dto,
+        Fixture fixture,
         Size size,
         DogId dogId)
     {
         //Arrange
-        dto.Size = size.ToString();
+        var dto = fixture.Build<CreateDogRequestDto>().With(x=>x.Size, size.ToString()).Create();
         _mediatrMock.Setup(x => x.Send(It.IsAny<IRequest<DogId>>(),
             It.IsAny<CancellationToken>()))
             .ReturnsAsync(dogId);
@@ -134,12 +135,12 @@ public class DogControllerTest
     [Theory]
     [AutoMoqData]
     public async void Should_send_CreateDogCommand_Command_with_correct_values_when_Create(
-        CreateDogRequestDto dto,
+        Fixture fixture,
         Size size,
         DogId dogId)
     {
         //Arrange
-        dto.Size = size.ToString();
+        var dto = fixture.Build<CreateDogRequestDto>().With(x => x.Size, size.ToString()).Create();
         CreateDogCommand command = null;
         _mediatrMock.Setup(x => x.Send(It.IsAny<IRequest<DogId>>(),
             It.IsAny<CancellationToken>()))
@@ -163,12 +164,12 @@ public class DogControllerTest
     [Theory]
     [AutoMoqData]
     public async void Should_send_UpdateDogCommand_Command_when_Update(
-        UpdateDogRequestDto dto,
+        Fixture fixture,
         Size size,
         DogId dogId)
     {
         //Arrange
-        dto.Size = size.ToString();
+        var dto = fixture.Build<UpdateDogRequestDto>().With(x => x.Size, size.ToString()).Create();
         _mediatrMock.Setup(x => x.Send(It.IsAny<IRequest>(),
             It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
@@ -185,12 +186,12 @@ public class DogControllerTest
     [Theory]
     [AutoMoqData]
     public async void Should_send_UpdateDogCommand_Command_when_Update_Command_with_correct_values_when_Update(
-        UpdateDogRequestDto dto,
+        Fixture fixture,
         Size size,
         DogId dogId)
     {
         //Arrange
-        dto.Size = size.ToString();
+        var dto = fixture.Build<UpdateDogRequestDto>().With(x => x.Size, size.ToString()).Create();
         UpdateDogCommand command = null;
         _mediatrMock.Setup(x => x.Send(It.IsAny<IRequest>(),
             It.IsAny<CancellationToken>()))

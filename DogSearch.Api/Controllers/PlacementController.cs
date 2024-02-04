@@ -27,7 +27,7 @@ public class PlacementController : Controller
         var listShowsByIdsQuery = new ListShowsByIdQuery(result.Select(x=>x.ShowId));
         var shows = await _mediator.Send(listShowsByIdsQuery);
         var listDogsByIdsQuery = new ListDogsByIdQuery(result.Select(x => x.DogId));
-        var dogs = await _mediator.Send(listShowsByIdsQuery);
+        var dogs = await _mediator.Send(listDogsByIdsQuery);
         var response = result.Select(x=>new GetPlacementResponseDto { 
             ShowName = shows.First(y=>y.Id.Value.Equals(x.ShowId.Value)).Name,
             DogName = dogs.First(y=>y.Id.Value.Equals(x.DogId.Value)).Name,
@@ -44,7 +44,7 @@ public class PlacementController : Controller
         var result = await _mediator.Send(query); var listShowsByIdsQuery = new ListShowsByIdQuery(result.Select(x => x.ShowId));
         var shows = await _mediator.Send(listShowsByIdsQuery);
         var listDogsByIdsQuery = new ListDogsByIdQuery(result.Select(x => x.DogId));
-        var dogs = await _mediator.Send(listShowsByIdsQuery);
+        var dogs = await _mediator.Send(listDogsByIdsQuery);
         var response = result.Select(x => new GetPlacementResponseDto
         {
             ShowName = shows.First(y => y.Id.Value.Equals(x.ShowId.Value)).Name,

@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace DogSearch.Core.Test.Queries;
+namespace DogSearch.Core.Test.Queries.Dogs;
 
 public class GetAllDogsQueryHandlerTest
 {

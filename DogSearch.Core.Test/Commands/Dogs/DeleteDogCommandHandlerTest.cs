@@ -7,7 +7,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace DogSearch.Core.Test.Commands;
+namespace DogSearch.Core.Test.Commands.Dogs;
 
 public class DeleteDogCommandHandlerTest
 {
