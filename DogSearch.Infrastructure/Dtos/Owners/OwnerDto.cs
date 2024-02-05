@@ -2,9 +2,9 @@
 
 public class OwnerDto :BaseDto
 {
-    public string FirstName { get; init; }
-    public string LastName { get; init; }
-    public string Address { get; init; }
-    public string Email { get; init; }
-    public string Phone { get; init; }
+    public string first_name { get; init; }
+    public string last_name { get; init; }
+    public string address { get; init; }
+    public string email { get; init; }
+    public string phone { get; init; }
 }

@@ -36,7 +36,7 @@ public class DogRepository : IDogRepository
             name = dog.Name,
             breed = dog.Breed,
             owner_id = dog.OwnerId.Value,
-            size= dog.Size,
+            size= dog.Size.ToString(),
         });
 
         await connection.CloseAsync();
@@ -49,9 +49,9 @@ public class DogRepository : IDogRepository
         var compiler = new PostgresCompiler();
         var db = new QueryFactory(connection, compiler);
 
-        var result = (await db.Query(DogTableName)
+        var result = await db.Query(DogTableName)
             .Where(Id, id.Value.ToString())
-            .DeleteAsync());
+            .DeleteAsync();
 
         await connection.CloseAsync();
     }
@@ -92,7 +92,6 @@ public class DogRepository : IDogRepository
         connection.Open();
         var compiler = new PostgresCompiler();
         var db = new QueryFactory(connection, compiler);
-
         var result = await db.Query(DogTableName)
             .Where(Id, ids.Select(x => x.Value))
             .GetAsync<DogDto>();
@@ -138,7 +137,7 @@ public class DogRepository : IDogRepository
             name = updatedName,
             breed = updatedBreed,
             owner_id = updatedOwnerId,
-            size = updatedSize,
+            size = updatedSize.ToString(),
         });
     }
 }

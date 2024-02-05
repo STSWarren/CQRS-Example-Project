@@ -2,8 +2,8 @@
 
 public class ShowDto:BaseDto
 {
-    public string Name { get; init; }
-    public string Description { get; init; }
-    public DateTimeOffset Date { get; init; }
-    public string Website { get; init; }
+    public string name { get; init; }
+    public string description { get; init; }
+    public DateTimeOffset date { get; init; }
+    public string website { get; init; }
 }

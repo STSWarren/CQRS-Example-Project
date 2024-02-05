@@ -2,8 +2,8 @@
 
 public class PlacementDto : BaseDto
 {
-    public string DogId { get; init; }
-    public string ShowId { get; init; }
-    public string Category { get; init; }
-    public int Place { get; init; }
+    public string dog_id { get; init; }
+    public string show_id { get; init; }
+    public string category { get; init; }
+    public int place { get; init; }
 }

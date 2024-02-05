@@ -2,8 +2,8 @@
 
 public class DogDto : BaseDto
 {
-    public string Name { get; init; }
-    public string Breed { get; init; }
-    public string OwnerId { get; init; }
-    public string Size { get; init; }
+    public string name { get; init; }
+    public string breed { get; init; }
+    public string owner_id { get; init; }
+    public string size { get; init; }
 }
