@@ -1,1 +1,1 @@
-﻿CREATE TABLE shows (id text NOT NULL PRIMARY KEY, name text NOT NULL, description text, date timestaptz NOT NULL, website text NOT NULL);
+﻿CREATE TABLE shows (id text NOT NULL PRIMARY KEY, name text NOT NULL, description text, date timestamptz NOT NULL, website text NOT NULL);

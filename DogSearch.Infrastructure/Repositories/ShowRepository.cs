@@ -1,6 +1,7 @@
-﻿using DogSearch.Core.Entities.Dog;
+﻿using AutoMapper;
 using DogSearch.Core.Entities.Shows;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
+using DogSearch.Infrastructure.Dtos.Shows;
 using DogSearch.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Npgsql;
@@ -12,12 +13,14 @@ namespace DogSearch.Infrastructure.Repositories;
 public class ShowRepository : IShowRepository
 {
     private readonly DatabaseConnectionOptions _options;
+    private readonly IMapper _mapper;
     private const string ShowTableName = "shows";
     private const string Id = "id";
 
-    public ShowRepository(IOptions<DatabaseConnectionOptions> options)
+    public ShowRepository(IOptions<DatabaseConnectionOptions> options, IMapper mapper)
     {
         _options = options.Value;
+        _mapper = mapper;
     }
 
     public async Task Create(Show show)
@@ -32,7 +35,7 @@ public class ShowRepository : IShowRepository
             id = show.Id.Value,
             name = show.Name,
             description = show.Description,
-            date = show.Date,
+            date = show.Date.ToUniversalTime(),
             website = show.Website,
         });
 
@@ -61,10 +64,10 @@ public class ShowRepository : IShowRepository
         var db = new QueryFactory(connection, compiler);
 
         var result = await db.Query(ShowTableName)
-            .GetAsync<Show>();
+            .GetAsync<ShowDto>();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<IEnumerable<Show>>(result);
     }
 
     public async Task<Show> GetById(ShowId id)
@@ -76,11 +79,11 @@ public class ShowRepository : IShowRepository
 
         var result = (await db.Query(ShowTableName)
             .Where(Id, id.Value)
-            .GetAsync<Show>())
+            .GetAsync<ShowDto>())
             .First();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<Show>(result);
     }
 
     public async Task Update(ShowId id, Show show)
@@ -90,10 +93,11 @@ public class ShowRepository : IShowRepository
         var compiler = new PostgresCompiler();
         var db = new QueryFactory(connection, compiler);
 
-        var showCurrentValue = (await db.Query(ShowTableName)
+        var showCurrentValueDto = (await db.Query(ShowTableName)
             .Where(Id, show.Id.Value)
-            .GetAsync<Show>())
+            .GetAsync<ShowDto>())
             .First();
+        var showCurrentValue = _mapper.Map<Show>(showCurrentValueDto);
         var updatedName = showCurrentValue.Name;
         if (show.Name != string.Empty)
         {
@@ -118,7 +122,7 @@ public class ShowRepository : IShowRepository
         {
             name = updatedName,
             description = updatedDesription,
-            date = updatedDate,
+            date = updatedDate.ToUniversalTime(),
             website = updatedWebsite,
         });
     }
@@ -132,9 +136,9 @@ public class ShowRepository : IShowRepository
 
         var result = await db.Query(ShowTableName)
             .Where(Id, ids.Select(x => x.Value))
-            .GetAsync<Show>();
+            .GetAsync<ShowDto>();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<IEnumerable<Show>>(result);
     }
 }

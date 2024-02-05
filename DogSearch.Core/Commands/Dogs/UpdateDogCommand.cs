@@ -1,4 +1,5 @@
 ﻿using DogSearch.Core.Entities.Dog;
+using DogSearch.Core.Entities.Owners;
 using MediatR;
 
 namespace DogSearch.Core.Commands.Dogs;
@@ -10,12 +11,12 @@ public class UpdateDogCommand : IRequest
         Id = new DogId(id);
         Name = name;
         Breed = breed;
-        OwnerId = ownerId;
+        OwnerId = new OwnerId(ownerId);
         Size = size;
     }
     public DogId Id { get; set; }
     public string Name { get; init; }
     public string Breed { get; init; }
-    public Guid OwnerId { get; init; }
+    public OwnerId OwnerId { get; init; }
     public Size? Size { get; init; }
 }

@@ -15,6 +15,6 @@ public class CreatePlacementCommandHandler : IRequestHandler<CreatePlacementComm
 
     public Task Handle(CreatePlacementCommand request, CancellationToken cancellationToken)
     {
-        return _repository.Create(new Placement(request.DogId, request.ShowId, request.Category, request.Place));
+        return _repository.Create(new Placement(Guid.NewGuid(), request.DogId.Value, request.ShowId.Value, request.Category, request.Place));
     }
 }

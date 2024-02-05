@@ -8,5 +8,5 @@ namespace DogSearch.Infrastructure.Dtos;
 
 public class BaseDto
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; }
 }

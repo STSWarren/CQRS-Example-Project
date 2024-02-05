@@ -1,5 +1,7 @@
-﻿using DogSearch.Core.Entities.Owners;
+﻿using AutoMapper;
+using DogSearch.Core.Entities.Owners;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
+using DogSearch.Infrastructure.Dtos.Owners;
 using DogSearch.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Npgsql;
@@ -11,12 +13,14 @@ namespace DogSearch.Infrastructure.Repositories;
 public class OwnerRepository : IOwnerRepository
 {
     private readonly DatabaseConnectionOptions _options;
+    private readonly IMapper _mapper;
     private const string OwnerTableName = "owners";
     private const string Id = "id";
 
-    public OwnerRepository(IOptions<DatabaseConnectionOptions> options)
+    public OwnerRepository(IOptions<DatabaseConnectionOptions> options, IMapper mapper)
     {
         _options = options.Value;
+        _mapper = mapper;
     }
 
     public async Task Create(Owner owner)
@@ -61,10 +65,10 @@ public class OwnerRepository : IOwnerRepository
         var db = new QueryFactory(connection, compiler);
 
         var result = await db.Query(OwnerTableName)
-            .GetAsync<Owner>();
+            .GetAsync<OwnerDto>();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<IEnumerable<Owner>>(result);
     }
 
     public async Task<Owner> GetById(OwnerId id)
@@ -76,11 +80,11 @@ public class OwnerRepository : IOwnerRepository
 
         var result = (await db.Query(OwnerTableName)
             .Where(Id, id.Value)
-            .GetAsync<Owner>())
+            .GetAsync<OwnerDto>())
             .First();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<Owner>(result);
     }
 
     public async Task Update(OwnerId id, Owner owner)
@@ -90,10 +94,11 @@ public class OwnerRepository : IOwnerRepository
         var compiler = new PostgresCompiler();
         var db = new QueryFactory(connection, compiler);
 
-        var ownerCurrentValue = (await db.Query(OwnerTableName)
+        var ownerCurrentValueDto = (await db.Query(OwnerTableName)
             .Where(Id, owner.Id.Value)
-            .GetAsync<Owner>())
+            .GetAsync<OwnerDto>())
             .First();
+        var ownerCurrentValue = _mapper.Map<Owner>(ownerCurrentValueDto);
         var updatedFirstName = ownerCurrentValue.FirstName;
         if (owner.FirstName != string.Empty)
         {

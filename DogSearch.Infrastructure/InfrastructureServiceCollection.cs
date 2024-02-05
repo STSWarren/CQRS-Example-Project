@@ -1,6 +1,7 @@
 ﻿using DogSearch.Core.Interfaces.Infrastructure.Repositories;
 using DogSearch.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace DogSearch.Infrastructure;
 
@@ -12,6 +13,7 @@ public static class InfrastructureServiceCollection
         services.AddScoped<IOwnerRepository, OwnerRepository>();
         services.AddScoped<IShowRepository, ShowRepository>();
         services.AddScoped<IPlacementRepository, PlacementRepository>();
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         return services;
     }
 }

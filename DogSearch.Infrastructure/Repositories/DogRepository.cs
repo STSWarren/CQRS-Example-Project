@@ -1,5 +1,7 @@
-﻿using DogSearch.Core.Entities.Dog;
+﻿using AutoMapper;
+using DogSearch.Core.Entities.Dog;
 using DogSearch.Core.Interfaces.Infrastructure.Repositories;
+using DogSearch.Infrastructure.Dtos.Dogs;
 using DogSearch.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 using Npgsql;
@@ -11,12 +13,14 @@ namespace DogSearch.Infrastructure.Repositories;
 public class DogRepository : IDogRepository
 {
     private readonly DatabaseConnectionOptions _options;
+    private readonly IMapper _mapper;
     private const string DogTableName = "dogs";
     private const string Id = "id";
     
-    public DogRepository(IOptions<DatabaseConnectionOptions> options)
+    public DogRepository(IOptions<DatabaseConnectionOptions> options, IMapper mapper)
     {
         _options = options.Value;
+        _mapper = mapper;
     }
 
     public async Task Create(Dog dog)
@@ -31,7 +35,7 @@ public class DogRepository : IDogRepository
             id=dog.Id.Value,
             name = dog.Name,
             breed = dog.Breed,
-            owner_id = dog.OwnerId,
+            owner_id = dog.OwnerId.Value,
             size= dog.Size,
         });
 
@@ -60,10 +64,10 @@ public class DogRepository : IDogRepository
         var db = new QueryFactory(connection, compiler);
 
         var result = await db.Query(DogTableName)
-            .GetAsync<Dog>();
+            .GetAsync<DogDto>();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<IEnumerable<Dog>>(result);
     }
 
     public async Task<Dog> GetById(DogId id)
@@ -75,11 +79,11 @@ public class DogRepository : IDogRepository
 
         var result = (await db.Query(DogTableName)
             .Where(Id, id.Value)
-            .GetAsync<Dog>())
+            .GetAsync<DogDto>())
             .First();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<Dog>(result);
     }
 
     public async Task<IEnumerable<Dog>> ListByIds(IEnumerable<DogId> ids)
@@ -91,10 +95,10 @@ public class DogRepository : IDogRepository
 
         var result = await db.Query(DogTableName)
             .Where(Id, ids.Select(x => x.Value))
-            .GetAsync<Dog>();
+            .GetAsync<DogDto>();
 
         await connection.CloseAsync();
-        return result;
+        return _mapper.Map<IEnumerable<Dog>>(result);
     }
 
     public async Task Update(DogId id, Dog dog)
@@ -104,10 +108,11 @@ public class DogRepository : IDogRepository
         var compiler = new PostgresCompiler();
         var db = new QueryFactory(connection, compiler);
 
-        var dogCurrentValue = (await db.Query(DogTableName)
+        var dogCurrentValueDto = (await db.Query(DogTableName)
             .Where(Id, dog.Id.Value)
-            .GetAsync<Dog>())
+            .GetAsync<DogDto>())
             .First();
+        var dogCurrentValue = _mapper.Map<Dog>(dogCurrentValueDto);
         var updatedName = dogCurrentValue.Name;
         if (dog.Name != string.Empty)
         {
@@ -119,7 +124,7 @@ public class DogRepository : IDogRepository
             updatedBreed = dog.Breed;
         }
         var updatedOwnerId = dogCurrentValue.OwnerId;
-        if (dog.OwnerId != Guid.Empty)
+        if (dog.OwnerId.Value != Guid.Empty)
         {
             updatedOwnerId = dog.OwnerId;
         }

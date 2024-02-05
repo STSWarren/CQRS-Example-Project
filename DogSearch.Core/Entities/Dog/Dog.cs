@@ -1,4 +1,6 @@
-﻿namespace DogSearch.Core.Entities.Dog;
+﻿using DogSearch.Core.Entities.Owners;
+
+namespace DogSearch.Core.Entities.Dog;
 
 public class Dog
 {
@@ -7,13 +9,13 @@ public class Dog
         Id = new DogId(id);
         Name = name;
         Breed = breed;
-        OwnerId = ownerId;
+        OwnerId = new OwnerId(ownerId);
         Size = size;
     }
 
     public DogId Id { get; init; }
     public string Name { get; init; }
     public string Breed { get; init; }
-    public Guid OwnerId { get; init; }
+    public OwnerId OwnerId { get; init; }
     public Size? Size { get; init; }
 }

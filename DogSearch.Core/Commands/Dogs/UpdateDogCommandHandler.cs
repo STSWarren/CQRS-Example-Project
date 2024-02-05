@@ -20,7 +20,7 @@ public class UpdateDogCommandHandler : IRequestHandler<UpdateDogCommand>
             new Dog(request.Id.Value,
             request.Name,
             request.Breed,
-            request.OwnerId,
+            request.OwnerId.Value,
             request.Size));
     }
 }

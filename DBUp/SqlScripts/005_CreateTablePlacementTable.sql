@@ -1,1 +1,1 @@
-﻿CREATE TABLE placements (show_id text FOREIGN KEY REFERENCES shows(id), dog_id text FOREIGN KEY REFERENCES dogs(id), category text NOT NULL, place int NOT NULL, PRIMARY KEY (show_id, dog_id, category));
+﻿CREATE TABLE placements (placement_id text PRIMARY KEY, show_id text FOREIGN KEY REFERENCES shows(id), dog_id text FOREIGN KEY REFERENCES dogs(id), category text NOT NULL, place int NOT NULL, UNIQUE (show_id, dog_id, category));

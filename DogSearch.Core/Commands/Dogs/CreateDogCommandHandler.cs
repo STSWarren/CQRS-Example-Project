@@ -15,7 +15,7 @@ public class CreateDogCommandHandler : IRequestHandler<CreateDogCommand, DogId>
 
     public async Task<DogId> Handle(CreateDogCommand request, CancellationToken cancellationToken)
     {
-        var dog = new Dog(Guid.NewGuid(), request.Name, request.Breed, request.OwnerId, request.Size);
+        var dog = new Dog(Guid.NewGuid(), request.Name, request.Breed, request.OwnerId.Value, request.Size);
         await _repository.Create(dog);
         return dog.Id;
     }
